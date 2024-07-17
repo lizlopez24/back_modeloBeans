@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+</head>
+<body>
+    <h1>Upload an Image</h1>
+    <input type="file" id="fileInput" />
+    <button id="uploadButton">Upload</button>
+    <p id="result"></p>
+   
+    <script>
+        document.getElementById('uploadButton').addEventListener('click', async () => {
+    const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0];
+    if (!file) {
+        alert('Please select a file!');
+        return;
+    }
+ 
+    const formData = new FormData();
+    formData.append('file', file);
+ 
+    const response = await fetch('/modelo', {
+        method: 'POST',
+        body: formData
+    });
+ 
+    const result = await response.json();
+    document.getElementById('result').innerText = JSON.stringify(result);
+});
+    </script>
+</body>
+</html>
